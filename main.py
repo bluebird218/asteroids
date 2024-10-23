@@ -6,23 +6,35 @@ from constants import *
 from player import *
 
 def main():
-	pygame.init
-	clock = pygame.time.Clock()
-	dt = 0
-	print("Starting asteroids!")
-	print(f"Screen width: {SCREEN_WIDTH}")
-	print(f"Screen height: {SCREEN_HEIGHT}")
-	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-	player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-	while True:
-		for event in pygame.event.get():
-    			if event.type == pygame.QUIT:
-        			return
-		screen.fill("black")
-		player.draw(screen)
-		pygame.display.flip()
-		dt = (clock.tick(60)) / 1000
-		player.update(dt)
+    pygame.init
+    clock = pygame.time.Clock()
+    dt = 0
+    print("Starting asteroids!")
+    print(f"Screen width: {SCREEN_WIDTH}")
+    print(f"Screen height: {SCREEN_HEIGHT}")
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+    #Creating containers
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+    
+    #Create Player
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    
+    #Game Loop
+    while True:
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return
+        screen.fill("black")
+        dt = (clock.tick(60)) / 1000
+        for sprite in updatable:
+            sprite.update(dt)
+        for sprite in drawable:
+            sprite.draw(screen)
+        pygame.display.flip()
+        
 
 if __name__ == "__main__":
     main()
