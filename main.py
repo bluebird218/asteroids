@@ -44,6 +44,10 @@ def main():
         #Update display (Make sure this comes last!)
         pygame.display.flip()
         
+        for asteroid in asteroids:
+            if player.collision(asteroid):
+                print("Game over!")
+                exit()
 
 if __name__ == "__main__":
     main()
