@@ -22,6 +22,6 @@ class CircleShape(pygame.sprite.Sprite):
         pass
 
     def collision(self, other):
-        distance = pygame.math.Vector2.distance_to(self.position, other.position)
+        distance = pygame.Vector2.distance_to(self.position, other.position)
         r1, r2 = self.radius, other.radius
         return distance <= r1 + r2
